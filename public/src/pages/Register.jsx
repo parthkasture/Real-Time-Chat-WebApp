@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Add from "../img/addAvatar.png";
 import { useNavigate, Link } from "react-router-dom";
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css';
@@ -17,12 +16,6 @@ const Register = () => {
     confirmPassword: "",
     profilePic: ""
   });
-
-  // useEffect(() => {
-  //     if (localStorage.getItem("chat-app-current-user")) {
-  //       navigate("/home");
-  //     }
-  //   }, []);
 
   const handleChange = (e) => {
     console.log(e.target.name);

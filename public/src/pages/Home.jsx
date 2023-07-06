@@ -3,15 +3,13 @@ import Sidebar from '../components/Sidebar'
 import Chat from '../components/Chat'
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
 import { usersRoute, host } from "../utils/APIroutes";
 import axios from "axios";
-import {io} from "socket.io-client";
+import { io } from "socket.io-client";
 
 const Home = () => {
 
   const navigate = useNavigate();
-  const socket = useRef();
   const [contacts, setContacts] = useState([]);
   const [currentChat, setCurrentChat] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -34,13 +32,13 @@ const Home = () => {
     }
     getCurrentUser();
   }, []);
+  const socket = io(host);
 
-  useEffect(() => {
+  socket.on("connect", () => {
     if (currentUser) {
-      socket.current = io(host);
-      socket.current.emit("add-user", currentUser._id);
-    }
-  }, [currentUser]);
+      socket.emit("add-user", currentUser._id);
+    }// x8WIv7-mJelg7on_ALbx
+  });
 
   useEffect(() => {
     async function getContacts() {
@@ -63,7 +61,7 @@ const Home = () => {
     <div className='home'>
       <div className="container">
         <Sidebar contacts={contacts} handleChatChange={handleChatChange} currentUser={currentUser} />
-        <Chat currentChat={currentChat} currentUser={currentUser} socket={socket}/>
+        <Chat currentChat={currentChat} currentUser={currentUser} socket={socket} />
       </div>
     </div>
   )

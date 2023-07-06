@@ -14,12 +14,6 @@ const Login = () => {
     password: "",
   });
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("chat-app-current-user")) {
-  //     navigate("/home");
-  //   }
-  // }, []);
-
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value }); //spread operator
   };
