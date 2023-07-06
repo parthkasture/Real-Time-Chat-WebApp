@@ -14,7 +14,7 @@ const Navbar = (props) => {
   };
   return (
     <div className='navbar'>
-      <span className="logo">Sasta Chat</span>
+      <span className="logo">Globe Chat</span>
       <div className="user">
         <img src={Add} alt="" />
         <span>{props.currentUser ? props.currentUser.username : null}</span>
