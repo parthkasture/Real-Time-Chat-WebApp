@@ -1,18 +1,16 @@
-import React, {useState, useEffect, useRef} from "react";
-import Add from "../img/add.png";
-import More from "../img/more.png";
+import React, { useState, useEffect, useRef } from "react";
 import Messages from "./Messages";
 import Input from "./Input";
 import axios from "axios";
 import { sendMessageRoute, recieveMessageRoute } from "../utils/APIroutes";
 
-const Chat = ({ currentChat, currentUser,socket }) => {
+const Chat = ({ currentChat, currentUser, socket }) => {
 
   const [messages, setMessages] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
 
   useEffect(() => {
-    async function f(){
+    async function f() {
       const data = await JSON.parse(
         localStorage.getItem("chat-app-current-user")
       );
@@ -40,7 +38,7 @@ const Chat = ({ currentChat, currentUser,socket }) => {
     const data = await JSON.parse(
       localStorage.getItem("chat-app-current-user")
     );
-    socket.current.emit("send-msg", {
+    socket.emit("send-msg", {
       to: currentChat._id,
       from: data._id,
       msg,
@@ -56,33 +54,29 @@ const Chat = ({ currentChat, currentUser,socket }) => {
     setMessages(msgs);
   };
 
-  useEffect(() => {
-    if (socket.current) {
-      
-      socket.current.on("msg-recieve", (msg) => {
-        setArrivalMessage({ fromSelf: false, message: msg });
-      });
-    }
-  }, []);
+  socket.on("msg-recieve", (msg) => {
+    // console.log(msg);
+    setArrivalMessage({ fromSelf: false, message: msg });
+  });
+
 
   useEffect(() => {
-    console.log(arrivalMessage);
+    // console.log(arrivalMessage);
     arrivalMessage && setMessages((prev) => [...prev, arrivalMessage]);
+
   }, [arrivalMessage]);
 
-  
+
   // console.log(contacts);
   return (
     <div className="chat">
       <div className="chatInfo">
         <span>{currentChat ? currentChat.username : "Welcome!"}</span>
-        {/* <div className="chatIcons">
-          <img src={Add} alt="" />
-          <img src={More} alt="" />
-        </div> */}
       </div>
-      <Messages messages={messages} />
-      <Input handleSendMsg={handleSendMsg} />
+      {currentChat ? <>
+        <Messages messages={messages} />
+        <Input handleSendMsg={handleSendMsg} />
+      </> : null}
     </div>
   );
 };

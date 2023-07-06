@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import Add from "../img/addAvatar.png";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Logout from './Logout';
 
 const Navbar = (props) => {

@@ -1,9 +1,6 @@
-import Add from "../img/samPle1.png";
 import React, { useState, useEffect } from "react";
 
 const Chats = ({ contacts, handleChatChange }) => {
-  // console.log(contacts);
-  // console.log(handleChatChange);
 
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
@@ -28,10 +25,8 @@ const Chats = ({ contacts, handleChatChange }) => {
       {contacts.map((contact, index) => {
         return (
           <div key={contact._id} className="userChat " onClick={() => changeCurrentChat(index, contact)}>
-            {/* <img src={Add} alt="" /> */}
             <div
               className={`userChatInfo userchat`}
-              
             >
               <span><h3>{contact.username}</h3></span>
             </div>
