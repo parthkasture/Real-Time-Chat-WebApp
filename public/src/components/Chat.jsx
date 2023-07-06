@@ -73,10 +73,8 @@ const Chat = ({ currentChat, currentUser, socket }) => {
       <div className="chatInfo">
         <span>{currentChat ? currentChat.username : "Welcome!"}</span>
       </div>
-      {currentChat ? <>
-        <Messages messages={messages} />
-        <Input handleSendMsg={handleSendMsg} />
-      </> : null}
+        <Messages messages={messages} currentChat={currentChat}/>
+        {currentChat ? <Input handleSendMsg={handleSendMsg} /> : null}
     </div>
   );
 };
