@@ -1,4 +1,5 @@
 const Messages = require("../model/messageModel");
+const File = require("../model/fileModel");
 
 module.exports.getMessages = async (req, res, next) => {
   try {
@@ -38,3 +39,30 @@ module.exports.addMessage = async (req, res, next) => {
   }
 };
 
+module.exports.uploadFile = async (req, res, next) => {
+  const fileObj = {
+    path : req.file.path,
+    name : req.file.originalname
+  }
+
+  try {
+    const file = await File.create(fileObj);
+    if(file) return res.json({path : `http://localhost:3000/file/${file._id}`});
+  } catch (ex) {
+    next(ex)
+  }
+}
+
+module.exports.downloadFile = async (req, res, next) => {
+  try {
+    const file = await File.findById(req.params.fileId);
+    console.log(file);
+    console.log("hi");
+    file.downloadNum++;
+    await file.save();
+    
+    res.download(file.path, file.name);
+  } catch (ex) {
+    next(ex)
+  }
+}

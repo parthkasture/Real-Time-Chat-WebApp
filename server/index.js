@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/auth", userRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/",messageRoutes);
 
 
 mongoose.connect("mongodb://0.0.0.0:27017/chatDB", {
