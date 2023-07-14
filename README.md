@@ -19,7 +19,7 @@ sharing.
 Both should be installed and make sure mongodb is running.  
 
 ```
-git clone https://github.com/parthkasture/Real-Time-Chat-WebApp
+git clone https://github.com/parthkasture/Real-Time-Chat-WebApp.git
 cd Real-Time-Chat-WebApp
 ```
 
